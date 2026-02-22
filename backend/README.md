@@ -1,4 +1,4 @@
-# {{PROJECT_NAME}} Backend
+# Cryptoc Backend
 
 A production-ready FastAPI backend with JWT authentication, structured logging, modular structure, middleware, and comprehensive error handling.
 
@@ -9,23 +9,29 @@ A production-ready FastAPI backend with JWT authentication, structured logging, 
 
 ## Database Setup
 
-Create the development and test databases:
+Create the development and test databases with a user:
 
 ```bash
-# Connect to PostgreSQL
+# Connect to PostgreSQL as postgres user
 psql -U postgres
 
-# Create dev database (replace {{PROJECT_NAME}} with your project name)
-CREATE DATABASE {{PROJECT_NAME}}_dev;
+# Create user with password
+CREATE USER dev WITH PASSWORD 'password';
+CREATE USER test WITH PASSWORD 'password';
 
-# Create test database
-CREATE DATABASE {{PROJECT_NAME}}_test;
+# Create databases and grant privileges
+CREATE DATABASE cryptoc_dev OWNER dev;
+CREATE DATABASE cryptoc_test OWNER test;
+
+# Grant database access to dev and test users
+GRANT ALL PRIVILEGES ON DATABASE cryptoc_dev TO dev;
+GRANT ALL PRIVILEGES ON DATABASE cryptoc_test TO test;
 
 # Exit psql
 \q
 ```
 
-> **Note:** The default test database is currently named `api_test`. If you renamed it to `{{PROJECT_NAME}}_test`, update the `TEST_DATABASE_URL` in your `.env.test` file accordingly.
+> **Note:** If you changed the username or password, update the `DATABASE_URL` in your `.env.development` and `TEST_DATABASE_URL` in your `.env.test` files accordingly.
 
 ## Quick Start
 
@@ -224,7 +230,7 @@ cp .env .env.development
 The template `.env` includes all available variables:
 ```bash
 ENVIRONMENT="development"
-PROJECT_NAME="FastAPI Backend"
+PROJECT_NAME="Cryptoc"
 API_V1_STR="/api/v1"
 DEV_BACKEND_PORT=8000
 BACKEND_PORT=${DEV_BACKEND_PORT}
@@ -232,7 +238,7 @@ CORS_ORIGINS=["http://localhost:5173"]
 LOG_LEVEL="INFO"
 LOG_JSON_FORMAT=false
 SECRET_KEY="your-secret-key-change-in-production"
-DATABASE_URL="postgresql://dev:password@localhost:5432/api_dev"
+DATABASE_URL="postgresql://dev:password@localhost:5432/cryptoc_dev"
 
 # SMTP Configuration (optional - leave empty to disable emails)
 SMTP_HOST="smtp.gmail.com"
@@ -261,31 +267,31 @@ sudo -u postgres python scripts/setup_db.py
 This will create:
 - **Dev user**: `dev` with password `argyle`
 - **Test user**: `test` with password `password`
-- **Dev database**: `api_dev` (owned by dev)
-- **Test database**: `api_test` (owned by test)
+- **Dev database**: `cryptoc_dev` (owned by dev)
+- **Test database**: `cryptoc_test` (owned by test)
 
 ### Running Migrations
 
 For development:
 ```bash
-DATABASE_URL="postgresql://dev:argyle@localhost:5432/api_dev" alembic upgrade head
+DATABASE_URL="postgresql://dev:argyle@localhost:5432/cryptoc_dev" alembic upgrade head
 ```
 
 For testing:
 ```bash
-DATABASE_URL="postgresql://test:password@localhost:5432/api_test" alembic upgrade head
+DATABASE_URL="postgresql://test:password@localhost:5432/cryptoc_test" alembic upgrade head
 ```
 
 ### Seed Data
 
 Seed the development database:
 ```bash
-DATABASE_URL="postgresql://dev:argyle@localhost:5432/api_dev" python scripts/seed_dev.py
+DATABASE_URL="postgresql://dev:argyle@localhost:5432/cryptoc_dev" python scripts/seed_dev.py
 ```
 
 Seed the test database:
 ```bash
-DATABASE_URL="postgresql://test:password@localhost:5432/api_test" python scripts/seed_test.py
+DATABASE_URL="postgresql://test:password@localhost:5432/cryptoc_test" python scripts/seed_test.py
 ```
 
 The seed scripts create:

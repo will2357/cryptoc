@@ -37,7 +37,7 @@ def test_imports_work():
     # Verify Settings can be instantiated
     assert isinstance(settings, Settings)
     assert settings.API_V1_STR == "/api/v1"
-    assert settings.PROJECT_NAME == "FastAPI Backend"
+    assert settings.PROJECT_NAME == "Cryptoc"
 
     # Verify schemas can be created
     item = ItemResponse(item_id=1, name="Test", price=10.0, q=None)

@@ -26,17 +26,17 @@ def create_users():
 
 
 def create_databases():
-    """Create api_dev and api_test databases."""
+    """Create cryptoc_dev and cryptoc_test databases."""
     print("\n=== Creating databases ===")
-    run_psql("CREATE DATABASE api_dev OWNER dev;")
-    run_psql("CREATE DATABASE api_test OWNER test;")
+    run_psql("CREATE DATABASE cryptoc_dev OWNER dev;")
+    run_psql("CREATE DATABASE cryptoc_test OWNER test;")
 
 
 def grant_privileges():
     """Grant privileges to users."""
     print("\n=== Granting privileges ===")
-    run_psql("GRANT ALL PRIVILEGES ON DATABASE api_dev TO dev;")
-    run_psql("GRANT ALL PRIVILEGES ON DATABASE api_test TO test;")
+    run_psql("GRANT ALL PRIVILEGES ON DATABASE cryptoc_dev TO dev;")
+    run_psql("GRANT ALL PRIVILEGES ON DATABASE cryptoc_test TO test;")
 
 
 def main():
@@ -46,8 +46,8 @@ def main():
     create_databases()
     grant_privileges()
     print("\n=== Setup complete ===")
-    print("Dev database: postgresql://dev:argyle@localhost:5432/api_dev")
-    print("Test database: postgresql://test:password@localhost:5432/api_test")
+    print("Dev database: postgresql://dev:argyle@localhost:5432/cryptoc_dev")
+    print("Test database: postgresql://test:password@localhost:5432/cryptoc_test")
 
 
 if __name__ == "__main__":

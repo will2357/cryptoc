@@ -2,9 +2,9 @@
 
 A full-stack application template with a Vite/React frontend and FastAPI backend.
 
-# {{PROJECT_NAME}}
+# Cryptoc
 
-{{PROJECT_DESCRIPTION}}
+A full-stack cryptocurrency real-time sentiment analysis app
 
 ## Template Placeholders
 

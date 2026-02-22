@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="FastAPI Backend")
+app = FastAPI(title="Cryptoc")
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,7 +14,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello from FastAPI!"}
+    return {"message": "Hello from Cryptoc!"}
 
 
 @app.get("/api/health")
